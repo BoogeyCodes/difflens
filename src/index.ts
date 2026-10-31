@@ -1,4 +1,4 @@
-export { diffLines, diffStats, type DiffLine, type DiffOp, type DiffStats } from './diff.js'
+export { diffLines, diffStats, formatDiffStats, type DiffLine, type DiffOp, type DiffStats } from './diff.js'
 export {
   compareRuns,
   type AgentRun,

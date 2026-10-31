@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { diffLines, diffStats } from '../src/diff.js'
+import { diffLines, diffStats, formatDiffStats } from '../src/diff.js'
 
 describe('diffLines', () => {
   it('marks every line equal for identical text', () => {
@@ -39,8 +39,13 @@ describe('diffLines', () => {
     expect(diffLines('', '')).toEqual([])
   })
 
-  it('counts added and removed lines', () => {
+  it('counts added, removed and unchanged lines', () => {
     const d = diffLines('a\nb\nc', 'a\nx\nc\nd')
-    expect(diffStats(d)).toEqual({ added: 2, removed: 1 })
+    expect(diffStats(d)).toEqual({ added: 2, removed: 1, unchanged: 2 })
+  })
+
+  it('formats stats compactly', () => {
+    const d = diffLines('a\nb\nc', 'a\nx\nc\nd')
+    expect(formatDiffStats(diffStats(d))).toBe('+2/-1')
   })
 })

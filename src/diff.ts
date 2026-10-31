@@ -46,11 +46,18 @@ export function diffLines(before: string, after: string): DiffLine[] {
 export interface DiffStats {
   added: number
   removed: number
+  unchanged: number
 }
 
 export function diffStats(lines: DiffLine[]): DiffStats {
   return {
     added: lines.filter((l) => l.op === 'insert').length,
     removed: lines.filter((l) => l.op === 'delete').length,
+    unchanged: lines.filter((l) => l.op === 'equal').length,
   }
+}
+
+/** A compact `+a/-r` label for a set of diff stats, for headers and summaries. */
+export function formatDiffStats(stats: DiffStats): string {
+  return `+${stats.added}/-${stats.removed}`
 }
